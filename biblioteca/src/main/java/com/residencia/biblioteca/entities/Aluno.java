@@ -44,13 +44,12 @@ public class Aluno {
 	@Column(name = "cidade")
 	private String cidade;
 
+	@OneToMany(mappedBy = "aluno")
+	private List<Emprestimo> emprestimos;
+	
 	public Integer getNumeroMatriculaAluno() {
 		return numeroMatriculaAluno;
 	}
-	
-	
-	@OneToMany(mappedBy = "aluno")
-	private List<Emprestimo> emprestimos;
 
 	public void setNumeroMatriculaAluno(Integer numeroMatriculaAluno) {
 		this.numeroMatriculaAluno = numeroMatriculaAluno;
