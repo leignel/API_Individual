@@ -26,8 +26,9 @@ public class Emprestimo {
 	@JoinColumn(name = "numeromatriculaaluno", referencedColumnName = "numeromatriculaaluno")
 	private Aluno aluno;
 	
-	@Column(name = "codigolivro")
-	private Integer codigoLivro;
+	@ManyToOne
+	@JoinColumn(name = "codigolivro", referencedColumnName = "codigolivro")
+	private Livro livro;
 	
 	@Column(name = "dataemprestimo")
 	private Date dataEmprestimo;
@@ -44,14 +45,6 @@ public class Emprestimo {
 
 	public void setCodigoEmprestimo(Integer codigoEmprestimo) {
 		this.codigoEmprestimo = codigoEmprestimo;
-	}
-
-	public Integer getCodigoLivro() {
-		return codigoLivro;
-	}
-
-	public void setCodigoLivro(Integer codigoLivro) {
-		this.codigoLivro = codigoLivro;
 	}
 
 	public Date getDataEmprestimo() {
@@ -85,6 +78,15 @@ public class Emprestimo {
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
+
+	public Livro getLivro() {
+		return livro;
+	}
+
+	public void setLivro(Livro livro) {
+		this.livro = livro;
+	}
+	
 	
 	
 
