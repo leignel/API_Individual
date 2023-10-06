@@ -13,23 +13,23 @@ public class LivroService {
 	@Autowired  
 	LivroRepository LivroRepo;
 	
-	public List<Livro> listarLivro(){
+	public List<Livro> listarLivros(){
 		return LivroRepo.findAll();
 	}
 	
-	public Livro buscarAlunoPorId(Integer id) {
+	public Livro buscarLivroPorId(Integer id) {
 		return LivroRepo.findById(id).get();
 	}
 	
-	public Livro salvarAluno(Livro livro) {
+	public Livro salvarLivro(Livro livro) {
 		return LivroRepo.save(livro);
 	}
 	
-	public Livro atualizarAluno(Livro livro) {
+	public Livro atualizarLivro(Livro livro) {
 		return LivroRepo.save(livro);
 	}
 	
-	public void deletarAluno(Livro livro) {
+	public void deletarLivro(Livro livro) {
 		 LivroRepo.delete(livro);
 	}
 }

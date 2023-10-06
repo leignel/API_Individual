@@ -13,23 +13,23 @@ public class EmprestimoService {
 	@Autowired  
 	EmprestimoRepository EmprestimoRepo;
 	
-	public List<Emprestimo> listarEmprestimo(){
+	public List<Emprestimo> listarEmprestimos(){
 		return EmprestimoRepo.findAll();
 	}
 	
-	public Emprestimo buscarAlunoPorId(Integer id) {
+	public Emprestimo buscarEmprestimoPorId(Integer id) {
 		return EmprestimoRepo.findById(id).get();
 	}
 	
-	public Emprestimo salvarAluno(Emprestimo emprestimo) {
+	public Emprestimo salvarEmprestimo(Emprestimo emprestimo) {
 		return EmprestimoRepo.save(emprestimo);
 	}
 	
-	public Emprestimo atualizarAluno(Emprestimo emprestimo) {
+	public Emprestimo atualizarEmprestimo(Emprestimo emprestimo) {
 		return EmprestimoRepo.save(emprestimo);
 	}
 	
-	public void deletarAluno(Emprestimo emprestimo) {
+	public void deletarEmprestimo(Emprestimo emprestimo) {
 		 EmprestimoRepo.delete(emprestimo);
 	}
 }

@@ -14,23 +14,23 @@ public class EditoraService {
 	@Autowired  
 	EditoraRepository EditoraRepo;
 	
-	public List<Editora> listarEditora(){
+	public List<Editora> listarEditoras(){
 		return EditoraRepo.findAll();
 	}
 	
-	public Editora buscarAlunoPorId(Integer id) {
+	public Editora buscarEditoraPorId(Integer id) {
 		return EditoraRepo.findById(id).get();
 	}
 	
-	public Editora salvarAluno(Editora editora) {
+	public Editora salvarEditora(Editora editora) {
 		return EditoraRepo.save(editora);
 	}
 	
-	public Editora atualizarAluno(Editora editora) {
+	public Editora atualizarEditora(Editora editora) {
 		return EditoraRepo.save(editora);
 	}
 	
-	public void deletarAluno(Editora editora) {
+	public void deletarEditora(Editora editora) {
 		 EditoraRepo.delete(editora);
 	}
 }
