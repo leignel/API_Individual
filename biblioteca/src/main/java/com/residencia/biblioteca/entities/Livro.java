@@ -3,6 +3,9 @@ package com.residencia.biblioteca.entities;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +18,7 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "emprestimo")
+@Table(name = "livro")
 public class Livro {
 	
 	@Id
@@ -36,11 +39,12 @@ public class Livro {
 	private Integer codigoIsbn;
 	
 	
-	//Comandos que entram no lugar da FK
+	@JsonBackReference(value = "editora-livro-ref")
 	@ManyToOne
 	@JoinColumn(name = "codigoeditora", referencedColumnName = "codigoeditora")
 	private Editora editora;
 	
+	@JsonManagedReference(value = "livro-emprestimo-ref")
 	@OneToMany(mappedBy = "livro")
 	private List<Emprestimo> emprestimos;
 	
