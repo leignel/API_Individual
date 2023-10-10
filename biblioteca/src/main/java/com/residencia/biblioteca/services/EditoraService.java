@@ -19,7 +19,7 @@ public class EditoraService {
 	}
 	
 	public Editora buscarEditoraPorId(Integer id) {
-		return EditoraRepo.findById(id).get();
+		return EditoraRepo.findById(id).orElse(null);
 	}
 	
 	public Editora salvarEditora(Editora editora) {

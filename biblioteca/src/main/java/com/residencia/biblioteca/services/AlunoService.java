@@ -24,8 +24,14 @@ public class AlunoService {
 		return alunoRepo.findAll();
 	}
 	
-	public Aluno buscarAlunoPorId(Integer id) {
-		return alunoRepo.findById(id).get();
+	public Aluno buscarAlunoPorId(Integer id) { 
+		//return alunoRepo.findById(id).get();      
+		/*Optional<Aluno> alunoBanco = alunoRepo.findById(id);    Usar esse ou o próximo return
+		if(alunoBanco.isPresent())
+			return alunoBanco.get();
+		else
+			return null;*/
+		return alunoRepo.findById(id).orElse(null);
 	}
 	
 	public Aluno salvarAluno(Aluno aluno) {

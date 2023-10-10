@@ -31,9 +31,15 @@ public class EditoraController {
 	
 	@GetMapping ("/{id}")
 	public ResponseEntity<Editora> buscarPorId(@PathVariable Integer id) {
-		return new ResponseEntity<>(editoraService.buscarEditoraPorId(id), HttpStatus.OK);
+		Editora editora = editoraService.buscarEditoraPorId(id);
 		
+		if (editora == null)	
+			return new ResponseEntity<>(editora, HttpStatus.NOT_FOUND);
+		
+		else
+			return new ResponseEntity<>(editoraService.buscarEditoraPorId(id), HttpStatus.OK);
 	}
+		
 	
 	@PostMapping
 	public ResponseEntity<Editora> salvar(@RequestBody Editora editora){

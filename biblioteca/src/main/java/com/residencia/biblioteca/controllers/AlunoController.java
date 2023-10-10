@@ -32,7 +32,13 @@ public class AlunoController {
 	
 	@GetMapping ("/{id}")
 	public ResponseEntity<Aluno> buscarPorId(@PathVariable Integer id) {
-		return new ResponseEntity<>(alunoService.buscarAlunoPorId(id), HttpStatus.OK);
+		Aluno aluno = alunoService.buscarAlunoPorId(id);
+		
+		if (aluno == null)	
+			return new ResponseEntity<>(aluno, HttpStatus.NOT_FOUND);
+		
+		else
+			return new ResponseEntity<>(alunoService.buscarAlunoPorId(id), HttpStatus.OK);
 	}
 	
 	// /alunos/porid?id=5
