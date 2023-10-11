@@ -42,7 +42,25 @@ public class AlunoService {
 		return alunoRepo.save(aluno);
 	}
 	
-	public void deletarAluno(Aluno aluno) {
+	public Boolean deletarAluno(Aluno aluno) {
+		if(aluno == null) {
+			return false;
+		}
+		Aluno alunoExistente = buscarAlunoPorId(aluno.getNumeroMatriculaAluno());
+		
+		if (alunoExistente == null) {
+			return false;
+		}
+		
 		 alunoRepo.delete(aluno);
+		 
+		 Aluno alunoContinuaExistindo = buscarAlunoPorId(aluno.getNumeroMatriculaAluno());
+		 
+		 if(alunoContinuaExistindo == null) {
+			 return true;
+		 }
+		 
+		 return false;
+		 
 	}
 }

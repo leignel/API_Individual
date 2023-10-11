@@ -8,29 +8,46 @@ import org.springframework.stereotype.Service;
 import com.residencia.biblioteca.entities.Editora;
 import com.residencia.biblioteca.repositories.EditoraRepository;
 
-
 @Service
 public class EditoraService {
-	@Autowired  
+	@Autowired
 	EditoraRepository EditoraRepo;
-	
-	public List<Editora> listarEditoras(){
+
+	public List<Editora> listarEditoras() {
 		return EditoraRepo.findAll();
 	}
-	
+
 	public Editora buscarEditoraPorId(Integer id) {
 		return EditoraRepo.findById(id).orElse(null);
 	}
-	
+
 	public Editora salvarEditora(Editora editora) {
 		return EditoraRepo.save(editora);
 	}
-	
+
 	public Editora atualizarEditora(Editora editora) {
 		return EditoraRepo.save(editora);
 	}
-	
-	public void deletarEditora(Editora editora) {
-		 EditoraRepo.delete(editora);
+
+	public Boolean deletarEditora(Editora editora) {
+		if (editora == null) {
+			return false;
+		}
+		Editora editoraExistente = buscarEditoraPorId(editora.getCodigoEditora());
+
+		if (editoraExistente == null) {
+			return false;
+		}
+
+		EditoraRepo.delete(editora);
+
+		Editora editoraContinuaExistindo = buscarEditoraPorId(editora.getCodigoEditora());
+
+		if (editoraContinuaExistindo == null) {
+			return true;
+		}
+
+		return false;
+
 	}
 }

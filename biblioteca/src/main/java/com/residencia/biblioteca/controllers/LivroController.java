@@ -20,39 +20,42 @@ import com.residencia.biblioteca.services.LivroService;
 @RestController
 @RequestMapping("/livros")
 public class LivroController {
-	
+
 	@Autowired
 	LivroService livroService;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Livro>> listarLivros(){
+	public ResponseEntity<List<Livro>> listarLivros() {
 		return new ResponseEntity<>(livroService.listarLivros(), HttpStatus.OK);
 	}
-	
-	@GetMapping ("/{id}")
+
+	@GetMapping("/{id}")
 	public ResponseEntity<Livro> buscarPorId(@PathVariable Integer id) {
-			Livro livro = livroService.buscarLivroPorId(id);
-			
-			if (livro == null)	
-				return new ResponseEntity<>(livro, HttpStatus.NOT_FOUND);
-			
-			else
-				return new ResponseEntity<>(livroService.buscarLivroPorId(id), HttpStatus.OK);
-		}
-	
+		Livro livro = livroService.buscarLivroPorId(id);
+
+		if (livro == null)
+			return new ResponseEntity<>(livro, HttpStatus.NOT_FOUND);
+
+		else
+			return new ResponseEntity<>(livroService.buscarLivroPorId(id), HttpStatus.OK);
+	}
+
 	@PostMapping
-	public ResponseEntity<Livro> salvar(@RequestBody Livro livro){
+	public ResponseEntity<Livro> salvar(@RequestBody Livro livro) {
 		return new ResponseEntity<>(livroService.salvarLivro(livro), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<Livro> atualizar(@RequestBody Livro livro) {
 		return new ResponseEntity<>(livroService.atualizarLivro(livro), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping
 	public ResponseEntity<String> deletarLivro (@RequestBody Livro livro) {
-		livroService.deletarLivro(livro);
-		return new ResponseEntity<>("Deletado com Sucesso", HttpStatus.OK);
+		if (Boolean.TRUE.equals(livroService.deletarLivro(livro))) {
+			return new ResponseEntity<>("Deletado com Sucesso", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Não foi possível deletar", HttpStatus.BAD_REQUEST);
+		}
 	}
 }
