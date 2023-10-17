@@ -13,10 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "codigoEditora"
-)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "codigoEditora", scope=Editora.class)
 @Entity
 @Table(name = "editora")
 public class Editora {

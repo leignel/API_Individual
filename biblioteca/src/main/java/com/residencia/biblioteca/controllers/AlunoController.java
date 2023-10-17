@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.residencia.biblioteca.dto.AlunoResumidoDTO;
 import com.residencia.biblioteca.entities.Aluno;
 import com.residencia.biblioteca.services.AlunoService;
 
@@ -30,6 +31,12 @@ public class AlunoController {
 		return new ResponseEntity<>(alunoService.listarAlunos(), HttpStatus.OK);
 	}
 	
+	@GetMapping("/resumido")
+	public ResponseEntity<List<AlunoResumidoDTO>> listarAlunosResumidos() {
+	    List<AlunoResumidoDTO> alunosResumidos = alunoService.listarAlunosResumidos();
+	    return new ResponseEntity<>(alunosResumidos, HttpStatus.OK);
+	}
+	
 	@GetMapping ("/{id}")
 	public ResponseEntity<Aluno> buscarPorId(@PathVariable Integer id) {
 		Aluno aluno = alunoService.buscarAlunoPorId(id);
@@ -39,6 +46,17 @@ public class AlunoController {
 		
 		else
 			return new ResponseEntity<>(alunoService.buscarAlunoPorId(id), HttpStatus.OK);
+	}
+	
+	@GetMapping ("/resumido/{id}")
+	public ResponseEntity<AlunoResumidoDTO> getAlunoResumidoPorId(@PathVariable Integer id) {
+		AlunoResumidoDTO alunoResDTO = alunoService.getAlunoResumidoPorId(id);
+		
+		if (alunoResDTO == null)	
+			return new ResponseEntity<>(alunoResDTO, HttpStatus.NOT_FOUND);
+		
+		else
+			return new ResponseEntity<>(alunoResDTO, HttpStatus.OK);
 	}
 	
 	// /alunos/porid?id=5
