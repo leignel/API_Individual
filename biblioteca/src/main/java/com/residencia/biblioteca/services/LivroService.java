@@ -13,19 +13,22 @@ import com.residencia.biblioteca.repositories.LivroRepository;
 @Service
 public class LivroService {
 	@Autowired
-	LivroRepository LivroRepo;
+	LivroRepository livroRepo;
+	
+	@Autowired
+	EmailService emailService;
 
 	public List<Livro> listarLivros() {
-		return LivroRepo.findAll();
+		return livroRepo.findAll();
 	}
 
 	public Livro buscarLivroPorId(Integer id) {
-		return LivroRepo.findById(id).orElse(null);
+		return livroRepo.findById(id).orElse(null);
 	}
 
 	public LivroResumidoDTO getLivroResumidoPorId(Integer id) {
 
-		Livro livro = LivroRepo.findById(id).orElse(null);
+		Livro livro = livroRepo.findById(id).orElse(null);
 
 		if (livro != null) {
 			LivroResumidoDTO livroResDTO = new LivroResumidoDTO(livro.getCodigoLivro(), livro.getNomeLivro(), livro.getDataLancamento(), livro.getEditora().getNome());
@@ -36,7 +39,7 @@ public class LivroService {
 	}
 	
 	public List<LivroResumidoDTO> listarLivrosResumidos() {
-		List<Livro> livros = LivroRepo.findAll();
+		List<Livro> livros = livroRepo.findAll();
 		List<LivroResumidoDTO> livrosDTO = new ArrayList<>();
 
 		for (Livro livro : livros) {
@@ -52,11 +55,13 @@ public class LivroService {
 	}
 	
 	public Livro salvarLivro(Livro livro) {
-		return LivroRepo.save(livro);
+		Livro newLivro = livroRepo.save(livro);
+		emailService.enviarEmail("cristian@email.com", "Novo Livro Cadastrado", newLivro.toString());
+		return newLivro;
 	}
 
 	public Livro atualizarLivro(Livro livro) {
-		return LivroRepo.save(livro);
+		return livroRepo.save(livro);
 	}
 
 	public Boolean deletarLivro(Livro livro) {
@@ -69,7 +74,7 @@ public class LivroService {
 			return false;
 		}
 
-		LivroRepo.delete(livro);
+		livroRepo.delete(livro);
 
 		Livro livroContinuaExistindo = buscarLivroPorId(livro.getCodigoLivro());
 

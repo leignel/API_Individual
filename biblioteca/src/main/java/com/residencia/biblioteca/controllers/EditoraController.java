@@ -12,8 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.residencia.biblioteca.dto.EditoraDTO;
+import com.residencia.biblioteca.dto.ReceitaWsDTO;
 import com.residencia.biblioteca.entities.Editora;
 import com.residencia.biblioteca.services.EditoraService;
 
@@ -39,7 +45,12 @@ public class EditoraController {
 		else
 			return new ResponseEntity<>(editoraService.buscarEditoraPorId(id), HttpStatus.OK);
 	}
-		
+	
+	//Editora DTO
+	@PostMapping("/DTO")
+	public ResponseEntity<EditoraDTO> salvarEditoraDTO(@RequestBody EditoraDTO editoraDTO){
+		return new ResponseEntity<>(editoraService.salvarEditoraDTO(editoraDTO), HttpStatus.CREATED);
+	}
 	
 	@PostMapping
 	public ResponseEntity<Editora> salvar(@RequestBody Editora editora){
@@ -58,5 +69,19 @@ public class EditoraController {
 		} else {
 			return new ResponseEntity<>("Não foi possível deletar", HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@GetMapping ("/consulta-cnpj/{cnpj}")
+	public ResponseEntity<ReceitaWsDTO> consultaCnpj(@PathVariable String cnpj) {
+		
+		return new ResponseEntity<>(editoraService.consultaCnpj(cnpj), HttpStatus.OK);
+		
+	}
+	
+	@PostMapping("/comfoto")
+	public ResponseEntity<Editora> salvarComFoto(@RequestPart("edt") String strEditora,
+			@RequestPart("img") MultipartFile arqImg
+			) throws JsonMappingException, JsonProcessingException{
+		return new ResponseEntity<>(editoraService.salvarEditoraComFoto(strEditora, arqImg), HttpStatus.CREATED);
 	}
 }

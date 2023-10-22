@@ -50,6 +50,7 @@ public class Livro {
 	private List<Emprestimo> emprestimos;
 	
 	
+	
 	public Integer getCodigoLivro() {
 		return codigoLivro;
 	}
@@ -104,6 +105,13 @@ public class Livro {
 
 	public void setAutor(Autor autor) {
 		this.autor = autor;
+	}
+
+	@Override
+	public String toString() {
+		return "Livro [codigoLivro=" + codigoLivro + ", nomeLivro=" + nomeLivro + ", autor=" + autor
+				+ ", dataLancamento=" + dataLancamento + ", codigoIsbn=" + codigoIsbn + ", editora=" + editora
+				+ ", emprestimos=" + emprestimos + "]";
 	}
 
 	
